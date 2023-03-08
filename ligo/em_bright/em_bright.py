@@ -151,7 +151,7 @@ def get_redshifts(distances, N=10000):
     return redshifts
 
 
-def source_classification_pe(posterior_samples_file, threshold=3.0,
+def source_classification_pe(posterior_samples_file, eosname=None, threshold=3.0,
                              num_eos_draws=None, eos_seed=None):
     """
     Compute ``HasNS``, ``HasRemnant``, and ``HasMassGap`` probabilities
@@ -226,7 +226,7 @@ def source_classification_pe(posterior_samples_file, threshold=3.0,
         prediction_em = np.mean(prediction_ems)
 
     else:
-        M_rem = computeDiskMass.computeDiskMass(mass_1, mass_2, a_1, a_2)
+        M_rem = computeDiskMass.computeDiskMass(mass_1, mass_2, a_1, a_2,eosname=eosname)
         prediction_ns = np.sum(mass_2 <= threshold)/len(mass_2)
         prediction_em = np.sum(M_rem > 0)/len(M_rem)
 
