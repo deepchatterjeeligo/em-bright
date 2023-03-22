@@ -151,8 +151,9 @@ def get_redshifts(distances, N=10000):
     return redshifts
 
 
-def source_classification_pe(posterior_samples_file, eosname=None, threshold=3.0,
-                             num_eos_draws=None, eos_seed=None):
+def source_classification_pe(posterior_samples_file, eosname=None,
+                             threshold=3.0, num_eos_draws=None,
+                             eos_seed=None):
     """
     Compute ``HasNS``, ``HasRemnant``, and ``HasMassGap`` probabilities
     from posterior samples.
@@ -161,6 +162,9 @@ def source_classification_pe(posterior_samples_file, eosname=None, threshold=3.0
     ----------
     posterior_samples_file : str
         Posterior samples file
+
+    eosname : str
+        Equation of state name, inferred from lalsimulation.
 
     threshold : float, optional
         Maximum neutron star mass for `HasNS` computation
@@ -226,7 +230,7 @@ def source_classification_pe(posterior_samples_file, eosname=None, threshold=3.0
         prediction_em = np.mean(prediction_ems)
 
     else:
-        M_rem = computeDiskMass.computeDiskMass(mass_1, mass_2, a_1, a_2,eosname=eosname)
+        M_rem = computeDiskMass.computeDiskMass(mass_1, mass_2, a_1, a_2, eosname=eosname)  # noqa:E501
         prediction_ns = np.sum(mass_2 <= threshold)/len(mass_2)
         prediction_em = np.sum(M_rem > 0)/len(M_rem)
 
