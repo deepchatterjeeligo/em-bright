@@ -200,9 +200,9 @@ def test_mock_classifier():
 )
 def test_compute_disk_mass(m1, m2, chi1, chi2,
                            eosname, non_zero_remnant):
-    has_remnant = em_bright.computeDiskMass.computeDiskMass(
-        m1, m2, chi1, chi2, eosname=eosname
-    ) > 0.
+    has_remnant, _ = em_bright.computeDiskMass.computeDiskMass(
+        m1, m2, chi1, chi2, eosname=eosname)
+    has_remnant = has_remnant > 0.
     assert has_remnant == non_zero_remnant
 
 
@@ -222,7 +222,7 @@ def test_compute_disk_mass_eos_marginalization(m1, m2, chi1, chi2,
     M, R = subset_draws['M'], 1000*subset_draws['R']
     max_mass = np.max(M)
     mass_radius_relation = interp1d(M[0], R[0], bounds_error=False)
-    has_remnant = em_bright.computeDiskMass.computeDiskMass(m1, m2, chi1, chi2, eosname=mass_radius_relation, max_mass=max_mass)  # noqa:E501
+    has_remnant, _ = em_bright.computeDiskMass.computeDiskMass(m1, m2, chi1, chi2, eosname=mass_radius_relation, max_mass=max_mass)  # noqa:E501
     assert has_remnant == non_zero_remnant
 
 
@@ -232,10 +232,10 @@ def test_compute_disk_mass_eos_marginalization(m1, m2, chi1, chi2,
      np.array([5.0, 2.0, 0.99, 0.0])]
 )
 def test_compute_disk_mass_numpy_scalar(masses_spins):
-    M_remnant_numpy_float = em_bright.computeDiskMass.computeDiskMass(
+    M_remnant_numpy_float, _ = em_bright.computeDiskMass.computeDiskMass(
         *(v for v in masses_spins), eosname="2H"
     )
-    M_remnant_float = em_bright.computeDiskMass.computeDiskMass(
+    M_remnant_float, _ = em_bright.computeDiskMass.computeDiskMass(
         *(float(v) for v in masses_spins), eosname="2H"
     )
     assert M_remnant_numpy_float == M_remnant_float

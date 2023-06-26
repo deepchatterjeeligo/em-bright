@@ -213,8 +213,9 @@ def source_classification_pe(posterior_samples_file, threshold=3.0,
             a_1, a_2 = np.zeros(len(mass_1)), np.zeros(len(mass_2))
 
     if eosname:
-        M_rem = computeDiskMass.computeDiskMass(mass_1, mass_2, a_1, a_2,
-                                                eosname=eosname)
+        M_rem, threshold = computeDiskMass.computeDiskMass(mass_1, mass_2,
+                                                           a_1, a_2,
+                                                           eosname=eosname)
         prediction_ns = np.sum(mass_2 <= threshold)/len(mass_2)
         prediction_em = np.sum(M_rem > 0)/len(M_rem)
 
@@ -230,7 +231,7 @@ def source_classification_pe(posterior_samples_file, threshold=3.0,
         max_masses = np.max(M, axis=1)
         f_M = [interp1d(m, r, bounds_error=False) for m, r in zip(M, R)]
         for mass_radius_relation, max_mass in zip(f_M, max_masses):
-            M_rem = computeDiskMass.computeDiskMass(mass_1, mass_2, a_1, a_2, eosname=mass_radius_relation, max_mass=max_mass)  # noqa:E501
+            M_rem, _ = computeDiskMass.computeDiskMass(mass_1, mass_2, a_1, a_2, eosname=mass_radius_relation, max_mass=max_mass)  # noqa:E501
             prediction_nss.append(np.mean(mass_2 <= max_mass))
             prediction_ems.append(np.mean(M_rem > 0))
 

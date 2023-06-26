@@ -125,7 +125,7 @@ def embright_categorization(inFile, outFile, eosname='2H', mNs_mass=None):
     q_inj = m1_inj/m2_inj
     q_rec = m1_rec/m2_rec
 
-    disk_mass_inj = computeDiskMass.computeDiskMass(
+    disk_mass_inj, _ = computeDiskMass.computeDiskMass(
         m1_inj_source, m2_inj_source, chi1_inj,
         chi2_inj, eosname=eosname
     )
