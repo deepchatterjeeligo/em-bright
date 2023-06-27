@@ -64,8 +64,17 @@ def _compactness_baryon_mass(m_ns, r_ns):
     return [C_ns, m2_b]
 
 
-def computeCompactness(M_ns, eosname='2H', R_ns=None,
-                       max_mass=2.834648092299807):
+def max_mass_from_eosname(eosname):
+    if eosname == "2H":
+        max_mass = 2.834648092299807
+    else:
+        eos = lalsim.SimNeutronStarEOSByName(eosname)
+        fam = lalsim.CreateSimNeutronStarFamily(eos)
+        max_mass = lalsim.SimNeutronStarMaximumMass(fam)/c.M_sun.value
+    return max_mass
+
+
+def computeCompactness(M_ns, eosname='2H', max_mass=None):
     '''
     Return the neutron star compactness as a function of mass
     and equation of state or radius
@@ -76,8 +85,6 @@ def computeCompactness(M_ns, eosname='2H', R_ns=None,
         Neutron star mass in solar masses
     eosname : str or interp1d
         Neutron star equation of state to be used
-    R_ns : array_like
-        Neutron star radius in m.
     max_mass : float
         Maximum mass of neutron star.
 
@@ -102,12 +109,8 @@ def computeCompactness(M_ns, eosname='2H', R_ns=None,
     >>> m_ns = np.array([1.1, 1.2, 1.3])
     >>> computeDiskMass.computeCompactness(m_ns, eosname='AP4')
     [array([0.141, 0.154, 0.167]), array([1.199, 1.318, 1.439]), 2.212]
-    >>> computeCompactness(2.1, R_ns=16000, eosname=None, max_mass=2.5)
-    [0.193, 2.362, 2.5]
     '''
-    if R_ns:
-        C_ns, m2_b = _compactness_baryon_mass(M_ns, R_ns)
-    elif isinstance(eosname, interp1d):
+    if isinstance(eosname, interp1d):
         # find R as a function of M
         R_ns = eosname(M_ns)
         C_ns, m2_b = _compactness_baryon_mass(M_ns, R_ns)
@@ -118,7 +121,7 @@ def computeCompactness(M_ns, eosname='2H', R_ns=None,
     else:
         with open(PACKAGE_FILENAMES['equil_2H.dat'], 'rb') as f:
             M_g, M_b, Compactness = np.loadtxt(f, unpack=True)
-        max_mass = 2.834648092299807
+        max_mass = max_mass_from_eosname("2H")
         s = UnivariateSpline(M_g, Compactness, k=5)
         s_b = UnivariateSpline(M_g, M_b, k=5)
         C_ns = s(M_ns)
@@ -244,7 +247,7 @@ def computeDiskMass(m1, m2, chi1, chi2, eosname='2H', kerr=False,
             chi_secondary = chi1
 
     [C_ns, m2_b, max_mass] = computeCompactness(m_secondary, eosname=eosname,
-                                                R_ns=R_ns, max_mass=max_mass)
+                                                max_mass=max_mass)
 
     eta = m_primary*m_secondary/(m_primary + m_secondary)**2
     BBH = m_secondary > max_mass

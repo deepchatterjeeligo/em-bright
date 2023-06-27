@@ -19,62 +19,71 @@ def test_version():
 
 
 @pytest.mark.parametrize(
-    'posteriors, dtype, result, result_eos',
+    'posteriors, dtype, result_2H, result_SLy, result_eos',
     [[[(1.2, 1.0, 0.0, 0.0, 0.0, 0.0, 100.0),
        (2.0, 0.5, 0.99, 0.99, 0.0, 0.0, 150.0)],
       [('chirp_mass', '<f8'), ('mass_ratio', '<f8'), ('a_1', '<f8'),
        ('a_2', '<f8'), ('tilt_1', '<f8'), ('tilt_2', '<f8'),
        ('luminosity_distance', '<f8')],
-      (1.0, 1.0, 0.5), (1.0, 1.0, 0.5)],
+      (1.0, 1.0, 0.5), (1.0, 1.0, 0.5), (1.0, 1.0, 0.5)],
      [[(1.2, 1.0, 0.0, 0.0, 100.0),
        (2.0, 0.5, 0.99, 0.99, 150.0)],
       [('chirp_mass', '<f8'), ('mass_ratio', '<f8'), ('a_1', '<f8'),
        ('a_2', '<f8'), ('luminosity_distance', '<f8')],
-      (1.0, 1.0, 0.5), (1.0, 0.5, 0.5)],
+      (1.0, 1.0, 0.5), (1.0, 0.5, 0.5), (1.0, 0.5, 0.5)],
      [[(1.4, 1.4, 0.0, 0.0, 100.0),
        (2.0, 0.5, 0.99, 0.99, 150.0)],
       [('mass_1', '<f8'), ('mass_2', '<f8'), ('a_1', '<f8'),
        ('a_2', '<f8'), ('luminosity_distance', '<f8')],
-      (1.0, 1.0, 0.0), (1.0, 1.0, 0.0)],
+      (1.0, 1.0, 0.0), (1.0, 1.0, 0.0), (1.0, 1.0, 0.0)],
      [[(1.4, 1.4, 100.0),
        (2.0, 0.5, 150.0)],
       [('mass_1', '<f8'), ('mass_2', '<f8'), ('luminosity_distance', '<f8')],
-      (1.0, 1.0, 0.0), (1.0, 1.0, 0.0)],
+      (1.0, 1.0, 0.0), (1.0, 1.0, 0.0), (1.0, 1.0, 0.0)],
      [[(1.4, 1.4, 1.4, 1.4, 0.0, 0.0, 100.0),
        (2.0, 0.5, 2.0, 0.5, 0.99, 0.99, 150.0)],
       [('mass_1_source', '<f8'), ('mass_2_source', '<f8'),
        ('mass_1', '<f8'), ('mass_2', '<f8'), ('a_1', '<f8'),
        ('a_2', '<f8'), ('luminosity_distance', '<f8')],
-      (1.0, 1.0, 0.0), (1.0, 1.0, 0.0)],
+      (1.0, 1.0, 0.0), (1.0, 1.0, 0.0), (1.0, 1.0, 0.0)],
      [[(4.5, -0.1, 200.0, 100000, 1.4, 1.4),
        (1.6, 0.3, 201.0, 100000, 1.5, 1.3)],
      [('ra', '<f8'), ('dec', '<f8'), ('luminosity_distance', '<f8'),
       ('time', '<f8'), ('mass_1', '<f8'), ('mass_2', '<f8')],
-     (1.0, 1.0, 0.0), (1.0, 1.0, 0.0)],
+     (1.0, 1.0, 0.0), (1.0, 1.0, 0.0), (1.0, 1.0, 0.0)],
      [[(4.5, -0.1, 200.0, 100000, 4.5, 4.4),
        (1.6, 0.3, 201.0, 100000, 4.3, 4.2)],
      [('ra', '<f8'), ('dec', '<f8'), ('luminosity_distance', '<f8'),
       ('time', '<f8'), ('mass_1', '<f8'), ('mass_2', '<f8')],
-     (0.0, 0.0, 1.0), (0.0, 0.0, 1.0)],
+     (0.0, 0.0, 1.0), (0.0, 0.0, 1.0), (0.0, 0.0, 1.0)],
      [[(4.5, -0.1, 200.0, 100000, 40.5, 4.4),
        (1.6, 0.3, 201.0, 100000, 40.3, 4.2)],
      [('ra', '<f8'), ('dec', '<f8'), ('luminosity_distance', '<f8'),
       ('time', '<f8'), ('mass_1', '<f8'), ('mass_2', '<f8')],
-     (0.0, 0.0, 1.0), (0.0, 0.0, 1.0)],
+     (0.0, 0.0, 1.0), (0.0, 0.0, 1.0), (0.0, 0.0, 1.0)],
      [[(4.5, -0.1, 200.0, 1.0, 2.0, 2.0, 0.0, 0.0),
        (1.6, 0.3, 201.0, 1.0, 5.0, 2.0, 0.0, 0.0)],
      [('ra', '<f8'), ('dec', '<f8'), ('luminosity_distance', '<f8'),
       ('time', '<f8'), ('mass_1', '<f8'), ('mass_2', '<f8'),
       ('spin_1z', '<f8'), ('spin_2z', '<f8')],
-     (1.0, 0.5, 0.5), (1.0, 0.5, 0.5)],
+     (1.0, 0.5, 0.5), (1.0, 0.5, 0.5), (1.0, 0.5, 0.5)],
      [[(4.5, -0.1, 200.0, 1.0, 2.0, 2.0, 0.99, 0.0),
        (1.6, 0.3, 201.0, 1.0, 5.0, 2.0, 0.99, 0.0)],
      [('ra', '<f8'), ('dec', '<f8'), ('luminosity_distance', '<f8'),
       ('time', '<f8'), ('mass_1', '<f8'), ('mass_2', '<f8'),
       ('spin_1z', '<f8'), ('spin_2z', '<f8')],
-     (1.0, 1.0, 0.5), (1.0, 1.0, 0.5)]]
+     (1.0, 1.0, 0.5), (1.0, 1.0, 0.5), (1.0, 1.0, 0.5)],
+     [[(3.0, 2.8, 0.0, 0.0, 100.0)],
+     [('mass_1_source', '<f8'), ('mass_2_source', '<f8'),
+      ('a_1', '<f8'), ('a_2', '<f8'), ('luminosity_distance', '<f8')],
+      (1.0, 0.0, 1.0), (0.0, 0.0, 1.0), (0.0, 0.0, 1.0)],
+     [[(2.5, 1.8, 0.0, 0.0, 100.0)],
+     [('mass_1_source', '<f8'), ('mass_2_source', '<f8'),
+      ('a_1', '<f8'), ('a_2', '<f8'), ('luminosity_distance', '<f8')],
+      (1.0, 1.0, 0.0), (1.0, 0.0, 0.0), (1.0, 0.0, 0.0)]]
 )
-def test_source_classification_pe(posteriors, dtype, result, result_eos):
+def test_source_classification_pe(posteriors, dtype, result_2H,
+                                  result_SLy, result_eos):
     """Test em_bright classification from posterior
     samples - both aligned and precessing cases.
     """
@@ -89,10 +98,12 @@ def test_source_classification_pe(posteriors, dtype, result, result_eos):
                 'posterior_samples',
                 data=data
             )
-        r = em_bright.source_classification_pe(filename, eosname='2H')
+        r_2H = em_bright.source_classification_pe(filename, eosname='2H')
+        r_SLy = em_bright.source_classification_pe(filename, eosname='SLy')
         r_eos = em_bright.source_classification_pe(filename, num_eos_draws=5,
                                                    eos_seed=0)
-    assert r == result
+    assert r_2H == result_2H
+    assert r_SLy == result_SLy
     assert r_eos == result_eos
 
 

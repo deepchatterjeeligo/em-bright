@@ -157,9 +157,6 @@ def source_classification_pe(posterior_samples_file, **kwargs):
     posterior_samples_file : str
         Posterior samples file
 
-    threshold : float, optional
-        Maximum neutron star mass for `HasNS` computation
-
     num_eos_draws : int
         providing an int here runs eos marginalization
         with the value determining how many eos's to draw
@@ -197,9 +194,6 @@ def source_classification_pe_from_table(table, **kwargs):
     ----------
     table : numpy.recarray, dict
         table containing the posterior samples
-
-    threshold : float, optional
-        Maximum neutron star mass for `HasNS` computation
 
     num_eos_draws : int
         providing an int here runs eos marginalization
@@ -245,9 +239,8 @@ def source_classification_pe_from_table(table, **kwargs):
 
 
 def source_classification_pe_from_samples(mass_1_source, mass_2_source,
-                                          spin_1z, spin_2z, threshold=3.0,
-                                          num_eos_draws=10000, eos_seed=None,
-                                          eosname=None):
+                                          spin_1z, spin_2z, eosname=None,
+                                          num_eos_draws=10000, eos_seed=None):
     """
     Compute ``HasNS``, ``HasRemnant``, and ``HasMassGap`` probabilities
     from samples.
@@ -268,17 +261,14 @@ def source_classification_pe_from_samples(mass_1_source, mass_2_source,
         Samples for the spin component aligned with the orbital angular
         momentum for the secondary object
 
-    threshold : float, optional
-        Maximum neutron star mass for `HasNS` computation
-
-    num_eos_draws : int
+    num_eos_draws : int, optional
         providing an int here runs eos marginalization
         with the value determining how many eos's to draw
 
-    eos_seed : int
+    eos_seed : int, optional
         seed for random eos draws
 
-    eosname : str
+    eosname : str, optional
         Equation of state name, inferred from ``lalsimulation``. Supersedes
         eos marginalization method when provided.
 
@@ -288,10 +278,12 @@ def source_classification_pe_from_samples(mass_1_source, mass_2_source,
         (HasNS, HasRemnant, HasMassGap) predicted values.
     """
     if eosname:
-        M_rem = computeDiskMass.computeDiskMass(mass_1_source, mass_2_source,
+        M_rem = computeDiskMass.computeDiskMass(mass_1_source,
+                                                mass_2_source,
                                                 spin_1z, spin_2z,
                                                 eosname=eosname)
-        prediction_ns = np.sum(mass_2_source <= threshold)/len(mass_2_source)
+        max_mass = computeDiskMass.max_mass_from_eosname(eosname)
+        prediction_ns = np.sum(mass_2_source <= max_mass)/len(mass_2_source)
         prediction_em = np.sum(M_rem > 0)/len(M_rem)
 
     else:
