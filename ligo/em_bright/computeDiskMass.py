@@ -98,7 +98,7 @@ def computeCompactness(M_ns, eosname='2H', max_mass=None):
     -----
     The radius and maximum mass of the neutron star is
     inferred based on the equation of state supplied.
-    Supply explicitly if `eosname=None`.
+    Max mass only needs to be supplied for EoS marginalization.
 
     Examples
     --------
