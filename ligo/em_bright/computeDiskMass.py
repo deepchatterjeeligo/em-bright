@@ -252,7 +252,7 @@ def computeDiskMass(m1, m2, chi1, chi2, eosname='2H', kerr=False,
     eta = m_primary*m_secondary/(m_primary + m_secondary)**2
     BBH = m_secondary > max_mass
     BNS = m_primary < max_mass
-    if isinstance(BNS, np.ndarray):
+    if not isinstance(BNS, np.ndarray):
         if BNS or BBH:
             return float(not (BBH) or BNS)
 
