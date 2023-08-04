@@ -252,8 +252,7 @@ def computeDiskMass(m1, m2, chi1, chi2, eosname='2H', kerr=False,
     eta = m_primary*m_secondary/(m_primary + m_secondary)**2
     BBH = m_secondary > max_mass
     BNS = m_primary < max_mass
-    # FIXME
-    if type(BNS) != np.ndarray:
+    if isinstance(BNS, np.ndarray):
         if BNS or BBH:
             return float(not (BBH) or BNS)
 
@@ -288,7 +287,7 @@ def computeDiskMass(m1, m2, chi1, chi2, eosname='2H', kerr=False,
     else:
         combinedTerms = 0 if combinedTerms < 0 else combinedTerms
     M_rem = (combinedTerms**delta)*m2_b
-    if type(BNS) == np.ndarray:
+    if isinstance(BNS, np.ndarray):
         M_rem[BBH] = 0.0  # BBH is always EM-Dark
         M_rem[BNS] = 1.0  # Ad hoc value, assuming BNS is always EM-Bright
     return M_rem
