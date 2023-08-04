@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.1.5] - unreleased
+## [1.1.5] - 2023-08-04
 
 - Split `source_classification_pe` into `source_classification_pe_from_table` and
   `source_classification_pe_from_samples`.
