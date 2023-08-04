@@ -4,6 +4,7 @@
 
 - Split `source_classification_pe` into `source_classification_pe_from_table` and
   `source_classification_pe_from_samples`.
+- Use isinstance() instead of type() for flake8
 
 ## [1.1.4.post2] - 2023-06-16
 
