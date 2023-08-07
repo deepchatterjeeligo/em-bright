@@ -10,5 +10,4 @@ dist
 .pytest_cache
 doc/.ipynb_checkpoints
 doc/_build
-doc/_static
 doc/_templates
