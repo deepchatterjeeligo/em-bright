@@ -2,7 +2,8 @@
 
 ## [1.1.6] - unreleased
 
-- No changes
+- Documentation updated to include ROC plots from MDC paper.
+- Cover the case of `mass2` > `mass1` in `source_classification`.
 
 ## [1.1.5] - 2023-08-04
 

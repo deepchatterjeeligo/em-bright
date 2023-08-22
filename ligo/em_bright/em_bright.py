@@ -86,7 +86,10 @@ def source_classification(mass_1, mass_2, chi1, chi2, snr,
     >>> em_bright.source_classification(2.0 ,1.0 ,0. ,0. ,10.0)
     (1.0, 1.0, 0.0)
     """
-    features = [[mass_1, mass_2, chi1, chi2, snr]]
+    if mass_1 >= mass_2:
+        features = [[mass_1, mass_2, chi1, chi2, snr]]
+    elif mass_1 < mass_2:
+        features = [[mass_2, mass_1, chi2, chi1, snr]]
     try:
         # custom classifiers supplied
         return (

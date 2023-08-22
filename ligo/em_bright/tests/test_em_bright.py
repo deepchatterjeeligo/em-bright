@@ -166,7 +166,8 @@ def test_source_classification_pe_nsbh_eos(posteriors, dtype, has_xxx_target):
      [1.1, 1.0, 0.0, 0.0, 5.0, 1.0, 1.0, 0.0],
      [100.0, 50.0, 0.0, 0.0, 10.0, 0.0, 0.0, 0.0],
      [8.0, 1.4, -0.99, 0.0, 20.0, 1.0, 0.0, 0.0],
-     [8.0, 1.4, 0.99, 0.0, 20.0, 1.0, 1.0, 0.04]]
+     [8.0, 1.4, 0.99, 0.0, 20.0, 1.0, 1.0, 0.04],
+     [1.4, 8.0, 0.0, 0.99, 20.0, 1.0, 1.0, 0.04]]  # to cover the case of m2>m1
 )
 def test_source_classification_sanity(m1, m2, chi1, chi2, snr,
                                       result_ns, result_em, result_mg):
