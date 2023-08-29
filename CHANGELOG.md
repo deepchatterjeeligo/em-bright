@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.1.7] - Unreleased
+
+- No changes yet
+
 ## [1.1.6] - 2023-08-29
 
 - Documentation updated to include ROC plots from MDC paper.
