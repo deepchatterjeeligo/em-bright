@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.1.6] - unreleased
+## [1.1.6] - 2023-08-29
 
 - Documentation updated to include ROC plots from MDC paper.
 - Cover the case of `mass2` > `mass1` in `source_classification`.
