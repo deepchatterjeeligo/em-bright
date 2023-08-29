@@ -2,7 +2,7 @@ __version__ = '1.1.6'
 
 PACKAGE_DATA_BASE_URL = (
     'https://git.ligo.org/emfollow/em-properties/em-bright/'
-    f'-/raw/{__version__}/ligo/em_bright/data'
+    f'-/raw/v{__version__}/ligo/em_bright/data'
 )
 
 PACKAGE_DATA_LINKS = {name: f'{PACKAGE_DATA_BASE_URL}/{name}' for name in (
